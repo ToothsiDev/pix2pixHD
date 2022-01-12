@@ -129,3 +129,15 @@ class Visualizer():
             txts.append(label)
             links.append(image_name)
         webpage.add_images(ims, txts, links, width=self.win_size)
+
+    def save_raw_images(visuals, image_path, image_dir):
+        short_path = ntpath.basename(image_path[0])
+        name = os.path.splitext(short_path)[0]
+        image_path_list = []
+        for label, image_numpy in visuals.items():
+            image_name = '%s_%s.jpg' % (name, label)
+            save_path = os.path.join(image_dir, image_name)
+            util.save_image(image_numpy, save_path)
+            image_path_list.append(save_path)
+
+        return image_path_list
